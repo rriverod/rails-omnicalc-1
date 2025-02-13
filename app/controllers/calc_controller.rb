@@ -25,4 +25,16 @@ class CalcController < ApplicationController
     render({:template => "/calc_templates/square_root_results"})
   end
 
+  def payment_new
+    render({:template => "/calc_templates/payment_new"})
+  end
+
+  def payment_results
+    @user_apr=params.fetch("user_apr").to_f
+    @user_years=params.fetch("user_years").to_i
+    @user_pv=params.fetch("user_pv").to_f
+    @user_payment=( @user_apr * @user_pv/1200)/(1-((1+@user_apr/1200)**(-@user_years*12)))
+    render({:template => "/calc_templates/payment_results"})
+  end
+
 end
